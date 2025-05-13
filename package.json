@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "MMM-KVV-Trias uses the Trias API to gather data from KVV Directly",
   "main": "MMM-KVV-Trias.js",
+  "dependencies": {
+    "node-fetch": "^2.6.9",
+    "xml2js": "^0.4.23"
+  },
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

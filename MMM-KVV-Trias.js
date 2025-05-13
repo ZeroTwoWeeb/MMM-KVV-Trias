@@ -1,64 +1,55 @@
 Module.register("MMM-KVV-Trias", {
-
   defaults: {
-    exampleContent: ""
+    station: "Karlsruhe Hauptbahnhof", // default station
+    maxConnections: 5,
+    updateInterval: 60000, // 1 minute
+    requestorRef: "password"
   },
 
-  /**
-   * Apply the default styles.
-   */
-  getStyles() {
-    return ["kvv-trias.css"]
+  start: function () {
+    this.connections = [];
+    this.loaded = false;
+    this.getData();
+    this.scheduleUpdate();
   },
 
-  /**
-   * Pseudo-constructor for our module. Initialize stuff here.
-   */
-  start() {
-    this.templateContent = this.config.exampleContent
-
-    // set timeout for next random text
-    setInterval(() => this.addRandomText(), 3000)
+  scheduleUpdate: function () {
+    setInterval(() => {
+      this.getData();
+    }, this.config.updateInterval);
   },
 
-  /**
-   * Handle notifications received by the node helper.
-   * So we can communicate between the node helper and the module.
-   *
-   * @param {string} notification - The notification identifier.
-   * @param {any} payload - The payload data`returned by the node helper.
-   */
+  getData: function () {
+    this.sendSocketNotification("GET_CONNECTIONS", this.config);
+  },
+
   socketNotificationReceived: function (notification, payload) {
-    if (notification === "EXAMPLE_NOTIFICATION") {
-      this.templateContent = `${this.config.exampleContent} ${payload.text}`
-      this.updateDom()
+    if (notification === "CONNECTIONS") {
+      this.connections = payload;
+      this.loaded = true;
+      this.updateDom();
     }
   },
 
-  /**
-   * Render the page we're on.
-   */
-  getDom() {
-    const wrapper = document.createElement("div")
-    wrapper.innerHTML = `<b>Title</b><br />${this.templateContent}`
-
-    return wrapper
-  },
-
-  addRandomText() {
-    this.sendSocketNotification("GET_RANDOM_TEXT", { amountCharacters: 15 })
-  },
-
-  /**
-   * This is the place to receive notifications from other modules or the system.
-   *
-   * @param {string} notification The notification ID, it is preferred that it prefixes your module name
-   * @param {number} payload the payload type.
-   */
-  notificationReceived(notification, payload) {
-    if (notification === "TEMPLATE_RANDOM_TEXT") {
-      this.templateContent = `${this.config.exampleContent} ${payload}`
-      this.updateDom()
+  getDom: function () {
+    const wrapper = document.createElement("div");
+    if (!this.loaded) {
+      wrapper.innerHTML = "Loading KVV data...";
+      return wrapper;
     }
+
+    if (this.connections.length === 0) {
+      wrapper.innerHTML = "No connections found.";
+      return wrapper;
+    }
+
+    const table = document.createElement("table");
+    this.connections.forEach((conn) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `<td>${conn.time}</td><td>${conn.line}</td><td>${conn.destination}</td>`;
+      table.appendChild(row);
+    });
+    wrapper.appendChild(table);
+    return wrapper;
   }
-})
+});
