@@ -7,7 +7,7 @@ See the [wiki page](https://github.com/Dennis-Rosenbaum/MMM-Template/wiki) for a
 
 ![Example of MMM-Template](./example_1.png)
 
-[Module description]
+MMM-KVV-Trias uses the Trias API to gather data from KVV Directly
 
 ## Installation
 
@@ -17,7 +17,7 @@ In your terminal, go to your [MagicMirror²][mm] Module folder and clone MMM-Tem
 
 ```bash
 cd ~/MagicMirror/modules
-git clone [GitHub url]
+git clone https://github.com/ZeroTwoWeeb/MMM-KVV-Trias
 ```
 
 ### Update
