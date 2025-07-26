@@ -25,6 +25,7 @@ In your terminal, go to your [MagicMirror²][mm] Module folder and clone MMM-Tem
 cd ~/MagicMirror/modules
 git clone https://github.com/ZeroTwoWeeb/MMM-KVV-Trias
 ```
+if there are missing dependencies
 ```bash
 npm install xml2js
 npm install node-fetch@2
