@@ -61,7 +61,7 @@ Module.register("MMM-KVV-Trias", {
             
       // Set color based on type
       if (train.line.startsWith("S")) {
-        lineBadge.style.backgroundColor = "#2ecc71"; // green for S-Bahn
+        lineBadge.style.backgroundColor = "#0c9655"; // green for S-Bahn
       } else if (train.line.startsWith("RB")) {
         lineBadge.style.backgroundColor = "#3498db"; // blue for RB
       } else if (train.line.startsWith("RE")) {
