@@ -2,6 +2,7 @@
 This is a  MagicMirror² module to gather data from the official KVV-Trias api.
 ## THIS MODULE IS NOT FULLY DEVELOPED, BUT ALREADY SOMEWHAT WORKS!!
 
+![Example of MMM-Template](./example.png)
 
 MMM-KVV-Trias uses the Trias API to gather data from KVV Directly
 
