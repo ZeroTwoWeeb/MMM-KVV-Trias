@@ -1,9 +1,7 @@
 # MMM-KVV-Trias
 This is a  MagicMirror² module to gather data from the official KVV-Trias api.
 ## THIS MODULE IS NOT FULLY DEVELOPED, BUT ALREADY SOMEWHAT WORKS!!
-# MMM-Template
 
-![Example of MMM-Template](./example_1.png)
 
 MMM-KVV-Trias uses the Trias API to gather data from KVV Directly
 
@@ -50,9 +48,9 @@ To use this module, add it to the modules array in the `config/config.js` file:
 
 Option|Default|Description
 ------|------|-----------
-`stationID`|not available|Station ID from stops.txt (google transit data)
+`stationID`|not available|Station ID from stops.txt (google transit data) ![Download google_transit.zip](https://projekte.kvv-efa.de/GTFS/google_transit.zip) containing newest stops.txt
 `updateInterval`|60000|interval of api calls (the API is rate limited) stay over 30000
-`stopsToShow`|5|how many connections will be shown ![Download google_transit.zip](https://projekte.kvv-efa.de/GTFS/google_transit.zip)
+`stopsToShow`|5|how many connections will be shown 
 `apiURL`||your custom api URL (get it from KVV)
 `requestorRef`||your api key
 
