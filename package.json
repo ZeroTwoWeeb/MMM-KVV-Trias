@@ -2,6 +2,12 @@
   "name": "mmm-kvv-trias",
   "version": "1.0.0",
   "description": "MMM-KVV-Trias uses the Trias API to gather data from KVV Directly",
+  "keywords": [
+    "MagicMirror",
+    "public transport",
+    "KVV",
+    "Trias"
+  ],
   "main": "MMM-KVV-Trias.js",
   "dependencies": {
     "node-fetch": "^2.6.9",
@@ -16,9 +22,6 @@
     "type": "git",
     "url": "git+https://github.com/ZeroTwoWeeb/MMM-KVV-Trias.git"
   },
-  "keywords": [
-    "template"
-  ],
   "author": "kob",
   "license": "MIT",
   "bugs": {
