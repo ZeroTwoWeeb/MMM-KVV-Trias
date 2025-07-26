@@ -53,6 +53,7 @@ module.exports = NodeHelper.create({
     });
 
     const xml = await response.text();
+    console.log("Response XML:", xml);
     const result = await parseStringPromise(xml);
     const events = result?.Trias?.ServiceDelivery?.[0]?.StopEventResponse?.[0]?.StopEventResult || [];
 
