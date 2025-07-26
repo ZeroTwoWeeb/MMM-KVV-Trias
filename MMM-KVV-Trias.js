@@ -1,54 +1,93 @@
 Module.register("MMM-KVV-Trias", {
   defaults: {
-    station: "Karlsruhe Hauptbahnhof", // default station
-    maxConnections: 5,
-    updateInterval: 60000, // 1 minute
-    requestorRef: "password"
+    stationID: "", // e.g. "de:8212:1:1"
+    updateInterval: 60000, // in ms
+    stopsToShow: 5,
+    apiURL: "",
+    requestorRef: "",
   },
 
-  start: function () {
-    this.connections = [];
+  start() {
+    this.trains = [];
     this.loaded = false;
     this.getData();
     this.scheduleUpdate();
   },
 
-  scheduleUpdate: function () {
+  scheduleUpdate() {
     setInterval(() => {
       this.getData();
     }, this.config.updateInterval);
   },
 
-  getData: function () {
-    this.sendSocketNotification("GET_CONNECTIONS", this.config);
+  getData() {
+    this.sendSocketNotification("FETCH_KVV_DATA", this.config);
   },
 
-  socketNotificationReceived: function (notification, payload) {
-    if (notification === "CONNECTIONS") {
-      this.connections = payload;
+  socketNotificationReceived(notification, payload) {
+    if (notification === "KVV_DATA") {
+      this.trains = payload;
       this.loaded = true;
       this.updateDom();
     }
   },
 
-  getDom: function () {
-    const wrapper = document.createElement("div");
-    if (!this.loaded) {
-      wrapper.innerHTML = "Loading KVV data...";
-      return wrapper;
-    }
+  getHeader() {
+    return "Departures from Station";
+  },
 
-    if (this.connections.length === 0) {
-      wrapper.innerHTML = "No connections found.";
+  getDom() {
+    const wrapper = document.createElement("div");
+
+    if (!this.loaded) {
+      wrapper.innerHTML = "Loading...";
       return wrapper;
     }
 
     const table = document.createElement("table");
-    this.connections.forEach((conn) => {
+    table.className = "small";
+
+    this.trains.slice(0, this.config.stopsToShow).forEach((train) => {
       const row = document.createElement("tr");
-      row.innerHTML = `<td>${conn.time}</td><td>${conn.line}</td><td>${conn.destination}</td>`;
+
+      const lineCell = document.createElement("td");
+      const lineBadge = document.createElement("span");
+      lineBadge.innerText = train.line;
+            
+      // Style it as a badge
+      lineBadge.style.padding = "2px 6px";
+      lineBadge.style.borderRadius = "12px";
+      lineBadge.style.color = "white";
+            
+      // Set color based on type
+      if (train.line.startsWith("S")) {
+        lineBadge.style.backgroundColor = "#2ecc71"; // green for S-Bahn
+      } else if (train.line.startsWith("RB")) {
+        lineBadge.style.backgroundColor = "#3498db"; // blue for RB
+      } else if (train.line.startsWith("RE")) {
+        lineBadge.style.backgroundColor = "#f01b1b"; // red for RE
+      } else {
+        lineBadge.style.backgroundColor = "#7f8c8d"; // grey fallback
+      }
+      
+      lineCell.appendChild(lineBadge);
+      row.appendChild(lineCell);
+
+      const directionCell = document.createElement("td");
+      directionCell.innerHTML = train.direction;
+      row.appendChild(directionCell);
+
+      const plannedCell = document.createElement("td");
+      plannedCell.innerHTML = train.plannedTime;
+      row.appendChild(plannedCell);
+
+      const realCell = document.createElement("td");
+      realCell.innerHTML = train.realTime || "-";
+      row.appendChild(realCell);
+
       table.appendChild(row);
     });
+
     wrapper.appendChild(table);
     return wrapper;
   }
