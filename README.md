@@ -6,12 +6,12 @@ This is a  MagicMirror² module to gather data from the official KVV-Trias api.
 MMM-KVV-Trias uses the Trias API to gather data from KVV Directly
 
 ## Getting Trias API KEY
-Check out the official Website:
-[KVV Website](https://www.kvv.de/fahrplan/fahrplaene/open-data.html)
-Or:
-Fill Out and sign this pdf
-[OpenData_Nutzungsvereinbarung.pdf](https://www.kvv.de/fileadmin/user_upload/OpenData_Nutzungsvereinbarung.pdf)
-and send to:
+Check out the official Website:  
+[KVV Website](https://www.kvv.de/fahrplan/fahrplaene/open-data.html)  
+Or:  
+Fill Out and sign this pdf  
+[OpenData_Nutzungsvereinbarung.pdf](https://www.kvv.de/fileadmin/user_upload/OpenData_Nutzungsvereinbarung.pdf)  
+and send to:  
 fahrplan@kvv.karlsruhe.de
 
 ## Installation
