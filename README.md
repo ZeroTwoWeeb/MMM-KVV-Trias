@@ -50,7 +50,7 @@ Option|Default|Description
 ------|------|-----------
 `stationID`|not available|Station ID from stops.txt (google transit data) ![Download google_transit.zip](https://projekte.kvv-efa.de/GTFS/google_transit.zip) containing newest stops.txt
 `updateInterval`|60000|interval of api calls (the API is rate limited) stay over 30000
-`stopsToShow`|5|how many connections will be shown 
+`stopsToShow`|5|how many connections will be shown
 `apiURL`||your custom api URL (get it from KVV)
 `requestorRef`||your api key
 
